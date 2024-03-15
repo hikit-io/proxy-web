@@ -1,0 +1,19 @@
+generates:
+  src/composable/useService.ts:
+    config:
+      vueCompositionApiImportFrom: 'vue'
+    schema: ./src/graphql/schema/service.graphql
+    documents: ./src/graphql/service.graphql
+    plugins:
+      - typescript-vue-apollo
+      - typescript
+      - typescript-operations
+  src/composable/useAuthService.ts:
+    config:
+      vueCompositionApiImportFrom: 'vue'
+    schema: ./src/graphql/schema/auth.graphql
+    documents: ./src/graphql/auth.graphql
+    plugins:
+      - typescript-vue-apollo
+      - typescript
+      - typescript-operations

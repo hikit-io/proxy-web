@@ -1,0 +1,14 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    subscription: Subscription
+}
+
+type Query {
+    ping: String!
+}
+
+type Subscription {
+    chat(message: String!): String!
+}

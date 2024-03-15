@@ -1,0 +1,21 @@
+query getProfile{
+    profile{
+        id
+        name
+        email
+    }
+}
+
+query getName{
+    profile{
+        name
+    }
+}
+
+query getAppBarRight{
+    profile {
+        name
+        account
+        avatar
+    }
+}

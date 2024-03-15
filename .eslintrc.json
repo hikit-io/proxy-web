@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:vue/vue3-strongly-recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {},
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "vue",
+    "@typescript-eslint"
+  ]
+}

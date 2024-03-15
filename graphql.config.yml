@@ -1,0 +1,23 @@
+projects:
+  Auth:
+    schema: ./src/graphql/schema/auth.graphql
+    extensions:
+      endpoints:
+        Auth:
+          url: https://api.hikit.io/auth/
+          headers:
+            user-agent: JS GraphQL
+          introspect: false
+    documents:
+      - ./src/graphql/auth.graphql
+  Other:
+    schema: ./src/graphql/schema/service.graphql
+    extensions:
+      endpoints:
+        Auth:
+          url: https://api.hikit.io/gpt/
+          headers:
+            user-agent: JS GraphQL
+          introspect: false
+    documents:
+      - ./src/graphql/service.graphql

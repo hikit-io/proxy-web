@@ -1,0 +1,50 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type DeleteResp {
+    id: String!
+}
+
+type LoginResp {
+    accessToken: String!
+    expires: Int!
+    idToken: String!
+    refreshToken: String!
+}
+
+type Mutation {
+    delete: DeleteResp!
+    login(by: LoginParams!): LoginResp!
+}
+
+type Profile {
+    account: String!
+    avatar: String!
+    email: String!
+    id: String!
+    isOtp: Boolean!
+    name: String!
+}
+
+type Query {
+    profile: Profile!
+}
+
+input EmailLoginParams {
+    email: String!
+    otp: String
+    password: String!
+}
+
+input GithubLoginParams {
+    code: String!
+}
+
+input LoginParams {
+    email: EmailLoginParams
+    github: GithubLoginParams
+}
