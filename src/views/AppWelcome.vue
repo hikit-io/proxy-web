@@ -3,7 +3,9 @@ import { computed, ref } from 'vue'
 import { useProfileQuery } from '@/composable/useService'
 import { useClipboard } from '@vueuse/core'
 import { Snackbar } from '@varlet/ui'
+import { useAccessToken } from '@/composable/useAccessToken'
 
+const { name } = useAccessToken()
 const { result } = useProfileQuery()
 
 const devices = ref([
@@ -35,7 +37,7 @@ const onCopy = () => {
 <template>
   <div class="main">
     <var-space class="main_space" direction="column">
-      <h1>Hi,Nekilc</h1>
+      <h1>Hi,{{ name }}</h1>
       <var-list>
         <var-cell title="Max Device" border>
           <template #extra>{{ maxDevice }}</template>
