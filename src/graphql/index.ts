@@ -42,13 +42,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 })
 
 const httpLink = createHttpLink({
-  uri: 'https://api.hikit.io/gpt/',
+  uri: 'https://api.hikit.io/proxy/',
   credentials: 'include',
 })
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: 'wss://api.hikit.io/gpt/ws',
+    url: 'wss://api.hikit.io/proxy/ws',
   }),
 )
 

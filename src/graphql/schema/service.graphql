@@ -2,13 +2,24 @@
 
 schema {
     query: Query
-    subscription: Subscription
+}
+
+type Profile {
+    createTs: Int!
+    id: Int!
+    maxDevice: Int!
+    secret: String!
+    updateTs: Int!
+    usedBandwidth: Int!
+    userId: String!
+}
+
+type ProfileDto {
+    onlineDevices: [String!]!
+    profile: Profile!
 }
 
 type Query {
     ping: String!
-}
-
-type Subscription {
-    chat(message: String!): String!
+    profile: ProfileDto!
 }

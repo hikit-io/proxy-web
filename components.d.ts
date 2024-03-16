@@ -8,9 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppLoading: typeof import('./src/components/AppLoading.vue')['default']
-    Icon: typeof import('@/components/IconifyIcon.vue')['default']
     IconifyIcon: typeof import('./src/components/IconifyIcon.vue')['default']
-    Loading: typeof import('@/components/AppLoading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VarAppBar: typeof import('@varlet/ui')['_AppBarComponent']
@@ -19,8 +17,8 @@ declare module 'vue' {
     VarCell: typeof import('@varlet/ui')['_CellComponent']
     VarDivider: typeof import('@varlet/ui')['_DividerComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
-    VarLink: typeof import('@varlet/ui')['_LinkComponent']
-    VarMenu: typeof import('@varlet/ui')['_MenuComponent']
+    VarInput: typeof import('@varlet/ui')['_InputComponent']
+    VarList: typeof import('@varlet/ui')['_ListComponent']
     VarPopup: typeof import('@varlet/ui')['_PopupComponent']
     VarSkeleton: typeof import('@varlet/ui')['_SkeletonComponent']
     VarSpace: typeof import('@varlet/ui')['_SpaceComponent']

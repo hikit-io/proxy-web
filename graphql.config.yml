@@ -14,8 +14,8 @@ projects:
     schema: ./src/graphql/schema/service.graphql
     extensions:
       endpoints:
-        Auth:
-          url: https://api.hikit.io/gpt/
+        Proxy:
+          url: https://api.hikit.io/proxy/
           headers:
             user-agent: JS GraphQL
           introspect: false

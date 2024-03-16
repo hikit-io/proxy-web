@@ -9,7 +9,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/welcome',
+      path: '/',
       component: () => import('@/views/AppWelcome.vue'),
     },
   ],
