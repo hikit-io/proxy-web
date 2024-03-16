@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useProfileQuery } from '@/composable/useService'
+import { useClipboard } from '@vueuse/core'
+import { Snackbar } from '@varlet/ui'
 
 const { result } = useProfileQuery()
 
@@ -20,6 +22,14 @@ const devices = ref([
 const link = computed(() => `https://api.hikit.io/proxy/subscription?tick=${result?.value?.profile.profile.secret ?? 'Waiting'}`)
 
 const maxDevice = computed(() => result?.value?.profile.profile.maxDevice ?? 'Waiting')
+
+const { copy } = useClipboard()
+
+const onCopy = () => {
+  copy(link.value).then(() => {
+    Snackbar.success({ content: 'Copy success' })
+  })
+}
 </script>
 
 <template>
@@ -46,7 +56,7 @@ const maxDevice = computed(() => result?.value?.profile.profile.maxDevice ?? 'Wa
       </var-list>
       <var-input :model-value="link" rows="4" textarea disabled></var-input>
       <var-space :justify="'center'">
-        <var-button type="primary" text outline> Copy Subscribe Link</var-button>
+        <var-button @click="onCopy" type="primary" text outline> Copy Subscribe Link</var-button>
         <var-button type="danger" text outline> Reset Subscribe</var-button>
       </var-space>
     </var-space>
