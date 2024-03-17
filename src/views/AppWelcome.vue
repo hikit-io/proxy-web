@@ -46,7 +46,7 @@ const onCopy = () => {
           <template #extra>Unlimited</template>
         </var-cell>
       </var-list>
-      <h3 class="h3">Online Devices (2/3)</h3>
+<!--      <h3 class="h3">Online Devices (2/3)</h3>-->
       <var-list v-if="false">
         <var-cell v-for="item in devices" :title="item.title" :description="item.ip" border>
           <template #extra>
