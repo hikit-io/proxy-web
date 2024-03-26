@@ -6,7 +6,7 @@ import { Snackbar } from '@varlet/ui'
 import { useAccessToken } from '@/composable/useAccessToken'
 
 const { name } = useAccessToken()
-const { result } = useProfileQuery()
+const { result } = useProfileQuery({ fetchPolicy: 'network-only' })
 
 const devices = ref([
   {
@@ -46,7 +46,7 @@ const onCopy = () => {
           <template #extra>Unlimited</template>
         </var-cell>
       </var-list>
-<!--      <h3 class="h3">Online Devices (2/3)</h3>-->
+      <!--      <h3 class="h3">Online Devices (2/3)</h3>-->
       <var-list v-if="false">
         <var-cell v-for="item in devices" :title="item.title" :description="item.ip" border>
           <template #extra>
