@@ -48,7 +48,7 @@ const onCopy = () => {
       </var-list>
       <!--      <h3 class="h3">Online Devices (2/3)</h3>-->
       <var-list v-if="false">
-        <var-cell v-for="item in devices" :title="item.title" :description="item.ip" border>
+        <var-cell v-for="item in devices" :key="item.title" :title="item.title" :description="item.ip" border>
           <template #extra>
             <var-button type="danger" size="small" text outline round>
               <var-icon name="window-close" />
