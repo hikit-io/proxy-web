@@ -2,6 +2,18 @@
 
 schema {
     query: Query
+    mutation: Mutation
+}
+
+type Device {
+    addr: String!
+    hostId: String!
+    userId: String!
+}
+
+type Mutation {
+    kick(deviceIds: [String!]!): Int!
+    resetSubscription: String!
 }
 
 type Profile {
@@ -15,7 +27,7 @@ type Profile {
 }
 
 type ProfileDto {
-    onlineDevices: [String!]!
+    onlineDevices: [Device!]!
     profile: Profile!
 }
 

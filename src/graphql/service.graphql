@@ -11,6 +11,14 @@ query profile{
             maxDevice
             usedBandwidth
         }
-        onlineDevices
+        onlineDevices{
+            hostId
+            addr
+        }
     }
+}
+
+
+mutation resetSubscription{
+    resetSubscription
 }

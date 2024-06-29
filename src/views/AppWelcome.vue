@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useProfileQuery } from '@/composable/useService'
+import { useProfileQuery, useResetSubscriptionMutation } from '@/composable/useService'
 import { useClipboard } from '@vueuse/core'
 import { Snackbar } from '@varlet/ui'
 import { useAccessToken } from '@/composable/useAccessToken'
@@ -11,6 +11,8 @@ const { result } = useProfileQuery({ fetchPolicy: 'cache-and-network', pollInter
 const link = computed(() => `https://api.hikit.io/proxy/subscription?tick=${result?.value?.profile.profile.secret ?? 'Waiting'}`)
 
 const maxDevice = computed(() => result?.value?.profile.profile.maxDevice ?? 'Waiting')
+const onlineDevices = computed(() => result?.value?.profile.onlineDevices ?? [])
+
 const onlineDevice = computed(() => result?.value?.profile.onlineDevices.length ?? 0)
 
 const { copy } = useClipboard()
@@ -20,6 +22,17 @@ const onCopy = () => {
     Snackbar.success({ content: 'Copy success' })
   })
 }
+
+const { mutate } = useResetSubscriptionMutation()
+const onReset = () => {
+  mutate()
+    .then(() => {
+      Snackbar.success({ content: 'Reset success' })
+    })
+    .catch((reason) => {
+      Snackbar.error({ content: reason })
+    })
+}
 </script>
 
 <template>
@@ -27,9 +40,6 @@ const onCopy = () => {
     <var-space class="main_space" direction="column">
       <h1>Hi,{{ name }}</h1>
       <var-list>
-        <var-cell title="Online Device" border>
-          <template #extra>{{ onlineDevice }}</template>
-        </var-cell>
         <var-cell title="Max Device" border>
           <template #extra>{{ maxDevice }}</template>
         </var-cell>
@@ -37,21 +47,23 @@ const onCopy = () => {
           <template #extra>Unlimited</template>
         </var-cell>
       </var-list>
-      <!--      <h3 class="h3">Online Devices (2/3)</h3>-->
-<!--      <var-list v-if="false">-->
-<!--        <var-cell v-for="item in devices" :key="item.title" :title="item.title" :description="item.ip" border>-->
-<!--          <template #extra>-->
-<!--            <var-button type="danger" size="small" text outline round>-->
-<!--              <var-icon name="window-close" />-->
-<!--            </var-button>-->
-<!--          </template>-->
-<!--        </var-cell>-->
-<!--      </var-list>-->
+
       <var-input :model-value="link" rows="4" textarea disabled></var-input>
       <var-space :justify="'center'">
         <var-button @click="onCopy" type="primary" text outline> Copy Subscribe Link</var-button>
-        <var-button type="danger" text outline> Reset Subscribe</var-button>
+        <var-button @click="onReset" type="danger" text outline> Reset Subscribe</var-button>
       </var-space>
+
+      <h3 class="h3">Online Devices ( {{ onlineDevice }} )</h3>
+      <var-list v-if="true">
+        <var-cell v-for="item in onlineDevices" :key="item" :title="item.addr" :description="item.hostId" border>
+          <template #extra>
+            <var-button type="danger" size="small" text outline round>
+              <var-icon name="window-close" />
+            </var-button>
+          </template>
+        </var-cell>
+      </var-list>
     </var-space>
   </div>
 </template>
