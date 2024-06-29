@@ -9,6 +9,8 @@ query profile{
             userId
             secret
             maxDevice
+            usedBandwidth
         }
+        onlineDevices
     }
 }

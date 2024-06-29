@@ -42,7 +42,9 @@ export const ProfileDocument = gql`
       userId
       secret
       maxDevice
+      usedBandwidth
     }
+    onlineDevices
   }
 }
     `;
@@ -106,4 +108,4 @@ export type PingQuery = { __typename?: 'Query', ping: string };
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'ProfileDto', profile: { __typename?: 'Profile', userId: string, secret: string, maxDevice: number } } };
+export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'ProfileDto', onlineDevices: Array<string>, profile: { __typename?: 'Profile', userId: string, secret: string, maxDevice: number, usedBandwidth: number } } };
