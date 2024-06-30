@@ -45,6 +45,7 @@ export const ProfileDocument = gql`
       usedBandwidth
     }
     onlineDevices {
+      id
       hostId
       addr
     }
@@ -94,6 +95,33 @@ export function useResetSubscriptionMutation(options: VueApolloComposable.UseMut
   return VueApolloComposable.useMutation<ResetSubscriptionMutation, ResetSubscriptionMutationVariables>(ResetSubscriptionDocument, options);
 }
 export type ResetSubscriptionMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<ResetSubscriptionMutation, ResetSubscriptionMutationVariables>;
+export const KickDevicesDocument = gql`
+    mutation kickDevices($deviceIds: [String!]!) {
+  kick(deviceIds: $deviceIds)
+}
+    `;
+
+/**
+ * __useKickDevicesMutation__
+ *
+ * To run a mutation, you first call `useKickDevicesMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useKickDevicesMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useKickDevicesMutation({
+ *   variables: {
+ *     deviceIds: // value for 'deviceIds'
+ *   },
+ * });
+ */
+export function useKickDevicesMutation(options: VueApolloComposable.UseMutationOptions<KickDevicesMutation, KickDevicesMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<KickDevicesMutation, KickDevicesMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<KickDevicesMutation, KickDevicesMutationVariables>(KickDevicesDocument, options);
+}
+export type KickDevicesMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<KickDevicesMutation, KickDevicesMutationVariables>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -107,12 +135,13 @@ export type Device = {
   __typename?: 'Device';
   addr: Scalars['String']['output'];
   hostId: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   userId: Scalars['String']['output'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  kick: Scalars['Int']['output'];
+  kick: Array<Scalars['String']['output']>;
   resetSubscription: Scalars['String']['output'];
 };
 
@@ -152,9 +181,16 @@ export type PingQuery = { __typename?: 'Query', ping: string };
 export type ProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'ProfileDto', profile: { __typename?: 'Profile', userId: string, secret: string, maxDevice: number, usedBandwidth: number }, onlineDevices: Array<{ __typename?: 'Device', hostId: string, addr: string }> } };
+export type ProfileQuery = { __typename?: 'Query', profile: { __typename?: 'ProfileDto', profile: { __typename?: 'Profile', userId: string, secret: string, maxDevice: number, usedBandwidth: number }, onlineDevices: Array<{ __typename?: 'Device', id: string, hostId: string, addr: string }> } };
 
 export type ResetSubscriptionMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ResetSubscriptionMutation = { __typename?: 'Mutation', resetSubscription: string };
+
+export type KickDevicesMutationVariables = Exact<{
+  deviceIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type KickDevicesMutation = { __typename?: 'Mutation', kick: Array<string> };

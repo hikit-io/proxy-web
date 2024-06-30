@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useProfileQuery, useResetSubscriptionMutation } from '@/composable/useService'
+import { useKickDevicesMutation, useProfileQuery, useResetSubscriptionMutation } from '@/composable/useService'
 import { useClipboard } from '@vueuse/core'
 import { Snackbar } from '@varlet/ui'
 import { useAccessToken } from '@/composable/useAccessToken'
@@ -33,6 +33,16 @@ const onReset = () => {
       Snackbar.error({ content: reason })
     })
 }
+const { mutate: kickDevice } = useKickDevicesMutation()
+const onKick = (id: string) => {
+  kickDevice({ deviceIds: [id] })
+    .then(() => {
+      Snackbar.success({ content: 'Kick success' })
+    })
+    .catch((reason) => {
+      Snackbar.error({ content: reason })
+    })
+}
 </script>
 
 <template>
@@ -49,16 +59,16 @@ const onReset = () => {
       </var-list>
 
       <var-input :model-value="link" rows="4" textarea disabled></var-input>
-      <var-space :justify="'center'">
-        <var-button @click="onCopy" type="primary" text outline> Copy Subscribe Link</var-button>
-        <var-button @click="onReset" type="danger" text outline> Reset Subscribe</var-button>
-      </var-space>
+      <div style="display: flex; justify-content: space-evenly; gap: 1em">
+        <var-button @click="onCopy" type="primary" style="flex: 1" text outline> Copy Subscribe Link</var-button>
+        <var-button @click="onReset" type="danger" style="flex: 1" text outline> Reset Subscribe</var-button>
+      </div>
 
       <h3 class="h3">Online Devices ( {{ onlineDevice }} )</h3>
       <var-list v-if="true">
-        <var-cell v-for="item in onlineDevices" :key="item" :title="item.addr" :description="item.hostId" border>
+        <var-cell v-for="item in onlineDevices" :key="item.id" :title="item.addr" :description="item.hostId" border>
           <template #extra>
-            <var-button type="danger" size="small" text outline round>
+            <var-button @click="onKick(item.id)" type="danger" size="small" text outline round>
               <var-icon name="window-close" />
             </var-button>
           </template>

@@ -8,11 +8,12 @@ schema {
 type Device {
     addr: String!
     hostId: String!
+    id: String!
     userId: String!
 }
 
 type Mutation {
-    kick(deviceIds: [String!]!): Int!
+    kick(deviceIds: [String!]!): [String!]!
     resetSubscription: String!
 }
 
